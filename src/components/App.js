@@ -1,13 +1,55 @@
-
-import React from "react";
-import './../styles/App.css';
+import React, { useState } from "react";
+import "./../styles/App.css";
 
 const App = () => {
-  return (
-    <div>
-        {/* Do not remove the main div */}
-    </div>
-  )
-}
+  const [fields, setFields] = useState([{ name: "", age: "" }]);
 
-export default App
+  const handleChange = (e, idx) => {
+    let { name, val } = e.target;
+    const updatedFields = [...fields];
+    updatedFields[idx][name] = val;
+    setFields(updatedFields);
+  };
+
+  const addField = () => {
+    setFields([...fields, { name: "", age: "" }]);
+  };
+
+  const removeField = (idx) => {
+    const updatedFields = fields.filter((ele, i) => i !== idx);
+    setFields(updatedFields);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(fields);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {fields.map((field, idx) => (
+        <div key={idx}>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            onChange={(e) => handleChange(e, idx)}
+          />
+          <input
+            type="number"
+            placeholder="Age"
+            name="age"
+            onChange={(e) => handleChange(e, idx)}
+          />
+          <button onClick={() => removeField(idx)}>Remove</button>
+        </div>
+      ))}
+
+      <button type="button" onClick={addField}>
+        Add Field
+      </button>
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
+export default App;
