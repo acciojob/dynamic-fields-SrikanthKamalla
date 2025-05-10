@@ -5,9 +5,9 @@ const App = () => {
   const [fields, setFields] = useState([{ name: "", age: "" }]);
 
   const handleChange = (e, idx) => {
-    let { name, val } = e.target;
+    let { name, value } = e.target;
     const updatedFields = [...fields];
-    updatedFields[idx][name] = val;
+    updatedFields[idx][name] = value;
     setFields(updatedFields);
   };
 
@@ -25,30 +25,33 @@ const App = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {fields.map((field, idx) => (
-        <div key={idx}>
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            onChange={(e) => handleChange(e, idx)}
-          />
-          <input
-            type="number"
-            placeholder="Age"
-            name="age"
-            onChange={(e) => handleChange(e, idx)}
-          />
-          <button onClick={() => removeField(idx)}>Remove</button>
-        </div>
-      ))}
+    <>
+      <form onSubmit={handleSubmit}>
+        {fields.map((field, idx) => (
+          <div key={idx}>
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              onChange={(e) => handleChange(e, idx)}
+            />
+            <input
+              type="number"
+              placeholder="Age"
+              name="age"
+              onChange={(e) => handleChange(e, idx)}
+            />
+            <button onClick={() => removeField(idx)}>Remove</button>
+          </div>
+        ))}
 
-      <button type="button" onClick={addField}>
-        Add Field
-      </button>
-      <button type="submit">Submit</button>
-    </form>
+        <button type="button" onClick={addField}>
+          Add Field
+        </button>
+        <button type="submit">Submit</button>
+      </form>
+      <p>After cicking submit check console for dat</p>
+    </>
   );
 };
 
